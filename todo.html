@@ -4,11 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <link href="style/todo.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-    <h1>HI</h1>
-    <div id="result"></div>
+  <div class="search-container">
+    <form>
+      <input type="text" id="searchtext" onkeyup="onSearch()" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+    <div class="box">
+    
+        <div class="form-group">
+          <label>Name:</label>
+          <input type="text" id="task1" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input type="text" id="task2" class="form-control">
+          <input type="hidden" id="saveindex">
+        </div>
+        <div class="form-group">
+          <label>Status:</label>
+          <select name="Status" id="status">
+            <option value="Pending">Pending</option>
+            <option value="In Progess">In Progess</option>
+            <option value="Done">Done</option>
+            
+          </select>
+        </div>
+      
+      <button onclick="onAdd()" class="btn btn-default" id="addbtn"style="display: inline;">Submit</button>
+      <button onclick="onEdit()" class="btn btn-default" id="editbtn" style="display: none;">Save Task</button>
+      <button onclick="onClear()" class="btn btn-default">Clear List</button>
+     
+      
+    </div>
+
+    <div class="box">
+    <div class="container">
+        <h2>Condensed Table</h2>
+        <p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>            
+        <table id="todotable">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Task</th>
+              <th>Description</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tbody id="taskbody"></tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
     <script src="script/todo.js"></script>
 </body>
 </html>
