@@ -1,8 +1,10 @@
 
-let todo3 = "hola";
-let todo1 = document.getElementById("task1");
-let todo2 = document.getElementById("task2");
+
+let todo = document.getElementById("task");
+let description = document.getElementById("description");
 let todostatus = document.getElementById("status");
+
+//hi
 showToDoList();
 function isEmpty(x){
     if(x !=""){
@@ -34,23 +36,14 @@ function isEmpty(x){
         n=i+1;
         text += "<tr>";
         text += "<td>" + n + "</td>";
-        text += "<td>" + taskObj[i].task+ "</td>";
+       // text += "<td>" + taskObj[i].task+ "</td>";
+       text += `<td> ${taskObj[i].task}</td>`;
         text += "<td>" + taskObj[i].des+ "</td>";
+        //text += `<td rowspan="3"></td>`;
         text += "<td>" + taskObj[i].status+ "</td>";
-     //   text += `<td><button type="button"
-      //  class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></td>`;
-        text += `<td><button onclick="onEditList(${i})" class="btn btn-danger btn-rounded btn-sm my-0" >Edit</button></td>`;
-        text += `<td><button onclick="onDeleteList(${i})" class="btn btn-danger btn-rounded btn-sm my-0" >Delete</button></td></tr>`;
-      /*  text += `<tr>
-                     "<td>" + n + "</td>";
-                    "<td>" + taskObj[i].name+ "</td>";
-                      "<td>" + taskObj[i].age+ "</td>";
-                     <button type="button"
-                     class="btn btn-danger btn-rounded btn-sm my-0">Remove</button>;
-                     <td><button>Edit</button></td>";
-                     "<td><button>Delete</button></td>
-                     </tr>`;
-                     */
+       text+= `<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button onclick="onEditList(${i})" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>`;
+       text+=`<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button onclick="onDeleteList(${i})" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>`;
+     
 
     }
     document.getElementById("taskbody").innerHTML = text;
@@ -65,8 +58,8 @@ function isEmpty(x){
 function onEditList(index){
     let webtask = localStorage.getItem("todotask");
     let taskObj=JSON.parse(webtask);
-    todo1.value= taskObj[index].task;
-    todo2.value= taskObj[index].des;
+    todo.value= taskObj[index].task;
+    description.value= taskObj[index].des;
     todostatus.value=taskObj[index].status;
     document.getElementById("addbtn").style.display="none";
     document.getElementById("editbtn").style.display="inline";
@@ -79,9 +72,9 @@ function onEditList(index){
     let webtask = localStorage.getItem("todotask");
     let taskObj=JSON.parse(webtask);
     let saveindex = document.getElementById("saveindex").value;
-    if(isEmpty(todo1.value) && isEmpty(todo2.value)){ 
-    taskObj[saveindex].task=todo1.value;
-    taskObj[saveindex].des=todo2.value;
+    if(isEmpty(todo.value) && isEmpty(description.value)){ 
+    taskObj[saveindex].task=todo.value;
+    taskObj[saveindex].des=description.value;
     taskObj[saveindex].status=todostatus.value;
     localStorage.setItem("todotask", JSON.stringify(taskObj));
     document.getElementById("addbtn").style.display="inline";
@@ -91,16 +84,16 @@ function onEditList(index){
     else{
         errorMsg();
     }
-    todo1.value="";
-    todo2.value="";
+    todo.value="";
+    description.value="";
     todostatus.value="";
 
  }
  
  function onAdd() {
     
-    addtask1val = todo1.value;
-    addtask2val = todo2.value;
+    addtask1val = todo.value;
+    addtask2val = description.value;
     addstatus = todostatus.value;
 
     if(isEmpty(addtask1val) && isEmpty(addtask2val) && isEmpty(addstatus)){
@@ -123,8 +116,8 @@ function onEditList(index){
     else{
         errorMsg();
     }   
-    todo1.value="";
-    todo2.value="";
+    todo.value="";
+    description.value="";
     todostatus.value="";
 
    
@@ -139,18 +132,36 @@ function onEditList(index){
   }
 
 function onSearch() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("searchtext");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("taskbody");
-    li = ul.getElementsByTagName("tr");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("td")[1];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
+  let  a, i, txtValue;
+  let input = document.getElementById("searchtext");
+  let filter = input.value.toUpperCase();
+  let searchby = document.getElementById("searchby").value;
+  let ul = document.getElementById("taskbody");
+  let li = ul.getElementsByTagName("tr");
+
+  if(searchby == "By task"){
+  for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("td")[1];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+      } else {
+          li[i].style.display = "none";
+      }
+  }
+}
+else if(searchby=="By Status"){
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("td")[3];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+    } else {
+        li[i].style.display = "none";
     }
+}
+
+}
+
+
 }

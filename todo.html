@@ -8,54 +8,87 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
      <link href="style/todo.css" rel="stylesheet">
-    <title>Document</title>
+    <title>To Do List</title>
 </head>
 <body>
-  <div class="search-container">
-    <form>
-      <input type="text" id="searchtext" onkeyup="onSearch()" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-  </div>
-    <div class="box">
-    
+  
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        
+        <label class="navbar-brand">ToDoList</label>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        
+        <form class="navbar-form navbar-right" role="search">
+          <div class="form-group input-group">
+            <input type="text" id="searchtext" onkeyup="onSearch()" class="form-control" placeholder="Search..">
+                   
+          </div>
+          
+        </form>
+        
+        
+        <ul class="nav navbar-nav navbar-right">
+
+          <select name="Search By" id="searchby" class="topnav" style="height:35px;">
+            <option value="" disabled selected>Search By:</option>
+            <option value="By task">Search by Task</option>
+            <option value="By Status">Search by Status</option>
+                     
+          </select>
+               
+        </ul>
+        
+      </div>
+      
+    </div>
+  </nav>
+   
+  <div class="space">
+
+  
         <div class="form-group">
-          <label>Name:</label>
-          <input type="text" id="task1" class="form-control">
+          <label>Task:</label>
+          <input type="text" id="task" class="form-control">
         </div>
         <div class="form-group">
-          <label>Password:</label>
-          <input type="text" id="task2" class="form-control">
+          <label>Description:</label>
+          <input type="text" id="description" class="form-control">
           <input type="hidden" id="saveindex">
         </div>
         <div class="form-group">
           <label>Status:</label>
-          <select name="Status" id="status">
+          <select class="selectpicker" data-style="btn-info" name="Status" id="status"  >
+            <option value="" disabled selected>Choose Status</option>
             <option value="Pending">Pending</option>
             <option value="In Progess">In Progess</option>
             <option value="Done">Done</option>
             
           </select>
+          
         </div>
       
-      <button onclick="onAdd()" class="btn btn-default" id="addbtn"style="display: inline;">Submit</button>
-      <button onclick="onEdit()" class="btn btn-default" id="editbtn" style="display: none;">Save Task</button>
-      <button onclick="onClear()" class="btn btn-default">Clear List</button>
-     
-      
+      <button onclick="onAdd()" class="btn btn-info" id="addbtn"style="display: inline;">Submit</button>
+      <button onclick="onEdit()" class="btn btn-info" id="editbtn" style="display: none;">Save Task</button>
+      <button onclick="onClear()" class="btn btn-info" >Clear List</button>
     </div>
-
-    <div class="box">
     <div class="container">
-        <h2>Condensed Table</h2>
-        <p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>            
-        <table id="todotable">
+        <h2 class="center">Task Table</h2>
+                 
+        <table id="todotable" class="table table-bordred table-striped" style="table-layout: auto; ">
           <thead>
             <tr>
-              <th>No.</th>
-              <th>Task</th>
-              <th>Description</th>
+              <th style="width: 5%;">No.</th>
+              <th style="width: 25%;">Task</th>
+              <th style="width: 50%;" >Description</th>
+              <th style="width: 10%;">Status</th>
+              <th style="width: 1%;">Edit</th>
+              <th style="width: 1%;">Delete</th>
+              
               
             </tr>
           </thead>
@@ -64,7 +97,7 @@
           </tbody>
         </table>
       </div>
-    </div>
+    
     
     <script src="script/todo.js"></script>
 </body>
